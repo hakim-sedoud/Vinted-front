@@ -22,19 +22,7 @@ function App() {
   const [ascending, setAscending] = useState(true);
   const [userToken, setUserToken] = useState("")
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://lereacteur-vinted-api.herokuapp.com/offers');
-        const jsonData = await response.json();
-        setData(jsonData.offers);
-      } catch (error) {
-        console.log('Error fetching data:', error);
-      }
-    };
 
-    fetchData();
-  }, []);
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -84,6 +72,20 @@ function App() {
   useEffect(() => {
   }, [userToken]);
  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`https://lereacteur-vinted-api.herokuapp.com/offers/`);
+        const jsonData = await response.json();
+        setData(jsonData.offers);
+      } catch (error) {
+        console.log('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
 <div >
   
@@ -99,7 +101,9 @@ function App() {
 
   />
     <Routes>
-      <Route path='/' element={<HomePage data={data} 
+      <Route path='/' element={<HomePage 
+      data={data} 
+      setData= {setData}
       isModalSing = {isModalSing} 
       setIsModalSing= {setIsModalSing}
       filteredData= {filteredData}

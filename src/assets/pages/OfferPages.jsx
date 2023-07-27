@@ -1,10 +1,35 @@
 import { useParams } from "react-router-dom";
+import {  useState, useEffect } from "react";
+import axios from "axios";
 
-function Offerpage({data}) {
+
+function Offerpage() {
+    const [isLoading, setIsLoading] = useState(true);
     const { id } = useParams();
-    const offer = data.find((item) => item._id === id);
+    const [offer ,setOffer] = useState({})
+    // const offerId = (data.find((item) => item._id === id));
+    // setOffer(offerId)
 
-    return (
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const { data } = await axios.get(
+              `https://lereacteur-vinted-api.herokuapp.com/offer/${id}`
+            );
+    
+            setOffer(data);
+            setIsLoading(false);
+          } catch (error) {
+            console.log("catch Offer>>>", error);
+          }
+        };
+    
+        fetchData();
+      }, []);
+
+    return isLoading ? (
+        <div>Loading...</div>
+      ) :(
 <div className="pageOffer">
     <div className="offerContainer"> 
     <div className="imgOffer">
@@ -15,8 +40,8 @@ function Offerpage({data}) {
         <p>{offer.product_price.toFixed(2)} €</p>
         <div className="offerDescription">
         {offer.product_details.map((detail) => {
-          const key = Object.keys(detail)[0]; // Récupérer la clé (ex: "MARQUE")
-          const value = detail[key]; // Récupérer la valeur (ex: "STRADIVARIUS")
+          const key = Object.keys(detail)[0]; 
+          const value = detail[key]; 
           return <p key={key}><span className="key">{`${key}`}:</span><span className="value">{`${value}`}</span></p>
           ;
         })}

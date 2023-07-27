@@ -42,7 +42,7 @@ function Publish ({userToken , setUserToken}) {
               console.log(pair[0], pair[1]);
             }
 
-            
+
             try {
                 const response = await axios.post(
                   "https://lereacteur-vinted-api.herokuapp.com/offer/publish",
@@ -60,7 +60,7 @@ function Publish ({userToken , setUserToken}) {
                 if (err.response.status === 500) {
                   console.error("An error occurred");
                 } else {
-                  console.error(err.response.data.msg);
+                  console.error(err.response.data);
                 }
               }
         }}
@@ -69,7 +69,7 @@ function Publish ({userToken , setUserToken}) {
             >
             <div className="publishImg">
                 <input type="file" onChange={event => {
-              setFile(event.target.files);
+              setFile(event.target.files[0]);
             }}/>
             </div>
             <div className="publishTitle">
