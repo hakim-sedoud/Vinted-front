@@ -1,7 +1,16 @@
 import { Link } from "react-router-dom";
-import ModalSing from "../composant/ModalSing";
 
-function HomePage({data, isModalSing, setIsModalSing }) {
+function HomePage({ filteredData , ascending}) {
+
+    const comparePrices = (a, b) => {
+        if (ascending) {
+          return a.product_price - b.product_price;
+        } else {
+          return b.product_price - a.product_price;
+        }
+      };
+
+      filteredData.sort(comparePrices);
 
     return (
 <main>
@@ -15,7 +24,7 @@ function HomePage({data, isModalSing, setIsModalSing }) {
     </div>
 </div>
 <div className="offres" >
-{data.map((item) => (
+{filteredData.map((item) => (
     <Link to={`/offer/${item._id}`} key={item._id} className="offer-link">
               <div key={item._id} className="offer">
             <p className="offerName">{item.owner.account.username}</p>

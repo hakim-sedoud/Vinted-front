@@ -8,7 +8,7 @@ header{
     align-items: center;
     padding: 10px 0;
 }
-header input {
+.recherche {
     width: 590px;
     background-color: #f5f6f7;
     border: none;
@@ -17,6 +17,12 @@ header input {
     font-size: 16px;
     height: 37px;
     outline: none;
+}
+.tri {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
 }
 header img {
     height: 40px;
@@ -290,4 +296,139 @@ main {
 .deconexion {
     background-color: red;
     border: red
+}
+
+
+
+/* ... autres styles existants ... */
+
+.switch-container {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .sort-text {
+    margin-right: 10px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+  
+  /* Cache l'input natif */
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  /* Crée le style de l'interrupteur */
+  .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    border-radius: 34px;
+    cursor: pointer;
+    
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    border-radius: 50%;
+    transition: 0.4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #09b1ba;
+    
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #09b1ba;
+  }
+  
+  input:checked + .slider:before {
+    transform: translateX(26px);
+    
+  }
+
+  .publish {
+    display: flex;
+    flex-direction: column;
+    background-color: #bcbcbc;
+    height: 100%;
+    gap: 20px;
+  }
+
+ .publish > form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+ }
+  .publish > form > div {
+
+    max-width: 1200px;
+    margin: auto;
+    background-color: white;
+    gap: 10px;
+  }
+  .publishImg {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  .publishTitle {
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+  }
+  .publishTitle div{
+    display: flex;
+    flex-direction: column;
+    padding: 60px 300px 0 60px ;
+    gap: 20px
+  }
+  .descriptionPlace {
+    height: 80px;
+    width: 300px;
+  }
+.publishDetail {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 0;
+    align-items: center;
+}
+.publishDetail input {
+    width: 90%;
+}
+.publishPrice {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    align-items: center;
+    padding: 10px 0;
+}
+.publishPrice input {
+    width: 90%;
 }

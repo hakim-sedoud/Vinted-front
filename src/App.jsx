@@ -8,6 +8,7 @@ import Cookies from 'js-cookie';
 import ModalLogin from './assets/composant/ModalLogin';
 import ModalSing from './assets/composant/ModalSing';
 import axios from 'axios';
+import Publish from './assets/pages/Publish';
 
 
 function App() {
@@ -16,6 +17,10 @@ function App() {
   const [isModalLogin, setIsModalLogin] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loginError, setLoginError] = useState('');
+  const [searchTerm, setSearchTerm] = useState(''); 
+  const [filteredData, setFilteredData] = useState([]); 
+  const [ascending, setAscending] = useState(true);
+  const [userToken, setUserToken] = useState("")
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,6 +42,20 @@ function App() {
       setIsLoggedIn(true);
     }
   }, []);
+
+  useEffect(() => {
+    setFilteredData(
+      data.filter((item) =>
+        item.product_details.MARQUE
+          ? item.product_details.MARQUE.toLowerCase().includes(searchTerm.toLowerCase())
+          : item.product_details.TAILLE
+          ? item.product_details.TAILLE.toLowerCase().includes(searchTerm.toLowerCase())
+          : item.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }, [data, searchTerm]);
+
+
   const handleLogout = () => {
     Cookies.remove('token');
     setIsLoggedIn(false);
@@ -62,6 +81,8 @@ function App() {
       setLoginError('Nom d\'utilisateur ou mot de passe incorrect');
     }
   };
+  useEffect(() => {
+  }, [userToken]);
  
   return (
 <div >
@@ -72,14 +93,19 @@ function App() {
   isLoggedIn={isLoggedIn}
   handleLogout={handleLogout}
   setIsModalLogin={setIsModalLogin}
+  setSearchTerm={setSearchTerm}
+  setAscending={setAscending}
+  ascending={ascending}
+
   />
     <Routes>
       <Route path='/' element={<HomePage data={data} 
       isModalSing = {isModalSing} 
       setIsModalSing= {setIsModalSing}
+      filteredData= {filteredData}
+      ascending={ascending}
       />}
       />
-      {/* <Route path='/offer/:id' element={<Offerpage data={data}/>}/> */}
       <Route
           path="/offer/:id"
           element={
@@ -96,6 +122,21 @@ function App() {
             )
           }
         />
+        <Route path="/Publish"
+          element={
+            isLoggedIn ? (
+              <Publish userToken={userToken} setUserToken = {setUserToken}/>
+            ) : (
+              <ModalLogin
+                isModalLogin={isModalLogin}
+                setIsModalLogin={setIsModalLogin}
+                handleLoginSubmit={handleLoginSubmit}
+                setIsModalSing = {setIsModalSing}
+                loginError={loginError}
+              />
+            )
+          }
+          />
     </Routes>
     {isModalSing && <ModalSing 
     isModalSing ={isModalSing} 
@@ -112,20 +153,7 @@ function App() {
         />
       )}
   </Router>
-  {/* {isModalSing && <ModalSing 
-    isModalSing ={isModalSing} 
-    setIsModalSing = {setIsModalSing} 
-    setIsModalLogin = {setIsModalLogin}
-/>}
-  {isModalLogin && (
-        <ModalLogin
-          isModalLogin={isModalLogin}
-          setIsModalLogin={setIsModalLogin}
-          setIsModalSing = {setIsModalSing}
-          handleLoginSubmit={handleLoginSubmit}
-          loginError={loginError}
-        />
-      )} */}
+
 </div>
   )
 }
