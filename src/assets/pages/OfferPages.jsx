@@ -25,7 +25,7 @@ function Offerpage() {
         };
     
         fetchData();
-      }, []);
+      }, [id]);
 
     return isLoading ? (
         <div>Loading...</div>
@@ -52,7 +52,10 @@ function Offerpage() {
             <p>{offer.product_name}</p>
             <p>{offer.product_description}</p>
             <div className="owner">
-                <img src={offer.owner.account.avatar.url} alt="" /> <span>{offer.owner.account.username}</span>
+            {offer.owner.account.avatar && <img src={offer.owner.account.avatar.url} alt="" /> }
+                 <span>{offer.owner.account.username}</span>
+                
+
             </div>
         </div>
         <button className="achetez">Achetez</button>
