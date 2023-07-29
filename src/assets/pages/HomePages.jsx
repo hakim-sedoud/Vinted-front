@@ -18,7 +18,7 @@ function HomePage({ filteredData , ascending}) {
     <div className="inBcgImg">
         <div className="itemBloc">
         <p>Prêts à faire du tri dans vos placards ?</p>
-        <button> Commencez à vendre</button>
+       <Link to={"/Publish"}> <button> Commencez à vendre</button> </Link> 
         <a href="">Découvrir coment ca marche</a>
         </div>
     </div>

@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 function ModalSing({ setIsModalSing , setIsModalLogin}) {
   
+    const [avatar, setAvatar] = useState(null)     
     const [error, setError] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
@@ -26,6 +27,7 @@ function ModalSing({ setIsModalSing , setIsModalLogin}) {
               username: name,
               password: password,
               newsletter: isChecked,
+              avatar :avatar ,
             }
           );
           console.log(response.data);
@@ -80,6 +82,17 @@ function ModalSing({ setIsModalSing , setIsModalLogin}) {
         />
         S'inscrir à notre newsletter
       </label>
+      {/* <label htmlFor="avatar">
+      <input 
+      type="file" 
+      id='avatar'
+      // value={avatar}
+          onChange={(event) => {
+            setAvatar(event.target.files[0]);
+          }}
+       />
+      ajoutez une photo de profil
+      </label> */}
       <p>En m'inscrivant je confirme avoir lu et accepté les termes blablablabla</p>
 
     <button className='singButton'>S'inscrir</button>

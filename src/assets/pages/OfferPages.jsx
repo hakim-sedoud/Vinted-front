@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {  useState, useEffect } from "react";
 import axios from "axios";
 
@@ -52,13 +52,17 @@ function Offerpage() {
             <p>{offer.product_name}</p>
             <p>{offer.product_description}</p>
             <div className="owner">
-            {offer.owner.account.avatar && <img src={offer.owner.account.avatar.url} alt="" /> }
+            {offer.owner.account.avatar && 
+            <img src={offer.owner.account.avatar.url} alt="" /> 
+            }
                  <span>{offer.owner.account.username}</span>
                 
 
             </div>
         </div>
-        <button className="achetez">Achetez</button>
+        <Link to={`/Payment/${offer._id}/${offer.product_price.toFixed(2)}/${offer.product_name}`}>
+           <button className="achetez">Achetez</button>
+        </Link>
     </div>
     </div>
     

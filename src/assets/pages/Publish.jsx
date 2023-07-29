@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+// import React from 'react'
+// import Dropzone from 'react-dropzone'
 
 function Publish ({userToken , setUserToken}) {
 
@@ -68,6 +70,16 @@ function Publish ({userToken , setUserToken}) {
             
             >
             <div className="publishImg">
+            {/* <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
+            {({getRootProps, getInputProps}) => (
+            <section>
+            <div {...getRootProps()}>
+            <input {...getInputProps()} />
+            <p>Drag 'n' drop some files here, or click to select files</p>
+            </div>
+            </section>
+            )}
+            </Dropzone> */}
                 <input type="file" onChange={event => {
               setFile(event.target.files[0]);
             }}/>

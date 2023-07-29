@@ -432,3 +432,49 @@ main {
 .publishPrice input {
     width: 90%;
 }
+
+/* -------------------------------------------- */
+
+.paymentPage{
+    background-color: #bcbcbc;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.paymentBloc {
+    background-color: white;
+    width: 500px;
+    border-radius: 15px;
+}
+.paymentBloc h3 {
+    padding: 5px 10px;
+}
+.order {
+    padding: 20px 10px 40px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-bottom: 1px solid rgb(167, 167, 167);
+}
+.order p {
+    display: flex;
+    justify-content: space-between;
+}
+.totalOrder {
+    padding: 20px 10px 40px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-bottom: 1px solid rgb(167, 167, 167);
+}
+.totalOrder p {
+    display: flex;
+    justify-content: space-between;
+}
+.payment {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 10px 10px 10px;
+    gap: 20px;
+}

@@ -9,6 +9,11 @@ import ModalLogin from './assets/composant/ModalLogin';
 import ModalSing from './assets/composant/ModalSing';
 import axios from 'axios';
 import Publish from './assets/pages/Publish';
+import Payment from './assets/pages/Payment';
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
+const stripePromise = loadStripe("pk_test_51HCObyDVswqktOkX6VVcoA7V2sjOJCUB4FBt3EOiAdSz5vWudpWxwcSY8z2feWXBq6lwMgAb5IVZZ1p84ntLq03H00LDVc2RwP");
 
 
 function App() {
@@ -88,6 +93,9 @@ function App() {
 
   return (
 <div >
+{/* <Elements stripe={stripePromise}>
+      <Payment />
+    </Elements> */}
   
   <Router>
   <Header isModalSing = {isModalSing} 
@@ -141,6 +149,13 @@ function App() {
             )
           }
           />
+          <Route path="/Payment/:id/:price/:name" element={
+            <Elements stripe={stripePromise}>
+              <Payment />
+            </Elements>
+          } />
+
+
     </Routes>
     {isModalSing && <ModalSing 
     isModalSing ={isModalSing} 
