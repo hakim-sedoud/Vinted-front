@@ -24,7 +24,7 @@ function Payment () {
       console.log("stripreponse ==>",stripeResponse);
       try {
         const stripeToken = stripeResponse.token.id;
-        const response = await axios.post("https://lereacteur-vinted-api.herokuapp.com/payment", {
+        const response = await axios.post("https://lereacteur-vinted-api.herokuapp.com/payment", { // declenche le catch
           stripeToken,
         });
         console.log("response.data ==>", response.data); // n'arrive pas jusqu'ici
@@ -46,7 +46,8 @@ function Payment () {
                     <p><span>frais de port</span><span>0.80</span></p>
                 </div>
                 <div className="totalOrder">
-                <p><span>Total</span><span>{(parseFloat(price) + 0.40 + 0.80).toFixed(2)} €</span></p>
+                <p><span>Total</span><span>{(parseFloat(price) + 0.40 + 0.80).toFixed(2)} €</span></p> 
+                {/* price n'est pas un Number?? */}
                 <p>plus qu'une étape pour acheter {name} vous allez payer {(parseFloat(price) + 0.40 + 0.80).toFixed(2)} frais de protection et frais de port inclus</p>
                 </div>
                 <div className="payment">
