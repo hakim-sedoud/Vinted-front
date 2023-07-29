@@ -25,16 +25,18 @@ function Payment () {
       try {
         const stripeToken = stripeResponse.token.id;
         const response = await axios.post("https://lereacteur-vinted-api.herokuapp.com/payment", { // declenche le catch
-          stripeToken,
+        token: stripeToken,
+        title: name,
+        amount: price
         });
-        console.log("response.data ==>", response.data); // n'arrive pas jusqu'ici
+        console.log("response.data ==>", response.data); 
         if (response.data.status === "succeeded") {
           setCompleted(true);
         }
       } catch (error) {
         console.error("erreur pendant le payement :", error);
       }
-    };
+    }; 
     return completed ?( <span>Paiement effectué ! </span> ) :
    (
         <div className="paymentPage">
