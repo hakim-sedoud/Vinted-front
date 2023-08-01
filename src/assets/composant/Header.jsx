@@ -37,8 +37,9 @@ function Header({ setIsModalSing ,isLoggedIn , handleLogout , setIsModalLogin , 
         <button onClick={() => setIsModalSing(true) }>S'inscrir</button>
         <button onClick={() => setIsModalLogin(true)}>Se connecter</button>
         </div>) }
+        <Link to="/publish" >
     <button>Vends tes articles</button>
-</header>
+</Link></header>
     )
   }
   

@@ -14,7 +14,7 @@ function Offerpage() {
         const fetchData = async () => {
           try {
             const { data } = await axios.get(
-              `https://lereacteur-vinted-api.herokuapp.com/offer/${id}`
+              `https://site--backend-vinded--8bd4m7bpgzgn.code.run/offer/${id}`
             );
     
             setOffer(data);

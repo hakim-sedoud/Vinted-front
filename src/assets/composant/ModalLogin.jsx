@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function ModalLogin({ setIsModalSing, setIsModalLogin, handleLoginSubmit, loginError }) {
   const [email, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -7,11 +7,18 @@ function ModalLogin({ setIsModalSing, setIsModalLogin, handleLoginSubmit, loginE
   const handleSubmit = (event) => {
     handleLoginSubmit(event, email, password);
   };
-
+  const navigate = useNavigate();
+  const closeModal = () => {
+    setIsModalLogin(false);
+    navigate("/");
+  };
   return (
-    <div className="modalLogin" onClick={() => setIsModalLogin(false)}>
+    
+    <div className="modalLogin" onClick={closeModal}>
       <div onClick={(event) => event.stopPropagation()}>
-        <p className='closeModal'onClick={() => setIsModalLogin(false)}>X</p>
+      <Link to="/">
+      <p className='closeModal'onClick={() => setIsModalLogin(false)}>X</p>
+    </Link>
         <h1>Connexion</h1>
         <form onSubmit={handleSubmit}>
           <div className='inp'>
@@ -37,6 +44,7 @@ function ModalLogin({ setIsModalSing, setIsModalLogin, handleLoginSubmit, loginE
           </form>
       </div>
     </div>
+  
   );
 }
 

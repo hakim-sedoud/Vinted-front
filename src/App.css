@@ -300,7 +300,6 @@ main {
 
 
 
-/* ... autres styles existants ... */
 
 .switch-container {
     display: flex;
@@ -321,14 +320,12 @@ main {
     height: 34px;
   }
   
-  /* Cache l'input natif */
   .switch input {
     opacity: 0;
     width: 0;
     height: 0;
   }
   
-  /* Crée le style de l'interrupteur */
   .slider {
     position: absolute;
     top: 0;
@@ -367,33 +364,28 @@ main {
     
   }
 
-  .publish {
+  .publish > div{
     display: flex;
     flex-direction: column;
-    background-color: #bcbcbc;
+    background-color: #edecec;
     height: 100%;
     gap: 20px;
   }
 
- .publish > form {
+ .publish div > form {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    align-items: center;
  }
-  .publish > form > div {
-
+  .publish div > form > div {
+    border-radius: 5px;
     max-width: 1200px;
     margin: auto;
     background-color: white;
     gap: 10px;
   }
-  .publishImg {
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  }
+ 
   .publishTitle {
     height: 200px;
     display: flex;
@@ -403,37 +395,71 @@ main {
   .publishTitle div{
     display: flex;
     flex-direction: column;
-    padding: 60px 300px 0 60px ;
+    padding: 60px 0px 0px 60px ;
     gap: 20px
+  }
+  .publishTitle div label{
+    margin: 10px 0 ;
+
+  }
+  .publishTitle div input{
+    border: none;
+    border-bottom: 1px solid grey;
+    background-color: #f7f7f7;
+        margin: 10px 0 ;
+
+  }
+  .publishTitle div textarea {
+    border: none;
+    border-bottom: 1px solid grey;
+    background-color: #f7f7f7;
+    margin: 10px 0 ;
+
   }
   .descriptionPlace {
     height: 80px;
     width: 300px;
   }
 .publishDetail {
-    height: 200px;
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 10px 0;
+    padding: 30px 0;
     align-items: center;
 }
 .publishDetail input {
     width: 90%;
+    border: none;
+    border-bottom: 1px solid grey;
+    background-color: #f7f7f7;
+    padding: 20px 0;
+    margin: 10px 0 ;
+
 }
 .publishPrice {
-    height: 200px;
+    height: 150px;
     display: flex;
     flex-direction: column;
-    width: 90%;
+    width: 100%;
     align-items: center;
-    padding: 10px 0;
+    padding: 30px 0;
 }
 .publishPrice input {
-    width: 90%;
+    width: 50%;
+    border: none;
+    border-bottom: 1px solid grey;
+    background-color: #f7f7f7;
+    padding: 20px 0;
 }
-
-/* -------------------------------------------- */
+.publish div > form button{
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    background: #09b1ba;
+    border: #09b1ba;
+    color: white;
+    margin-bottom: 30px;
+}
 
 .paymentPage{
     background-color: #bcbcbc;
@@ -478,3 +504,159 @@ main {
     padding: 20px 10px 10px 10px;
     gap: 20px;
 }
+.condition {
+    font-size: 10px;
+    color: #999;
+}
+.goToConnexion {
+    font-size: 12px;
+}
+.goToHome {
+    font-size: 12px;
+    padding-bottom: 20px;
+}
+strong {
+    font-weight: bolder;
+    cursor: pointer;
+}
+#avatar {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
+.addAvatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    background: #09b1ba;
+    border: #09b1ba;
+    color: white;
+}
+
+.confetis {
+    height: 400px;
+    width: 500px;
+} 
+
+.goToAccueil {
+    width: 300px;
+    height: 40px;
+    border-radius: 5px;
+    background: #09b1ba;
+    border: #09b1ba;
+    color: white;
+}
+.publishImg {
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+  }
+.publishImg div {
+    border: 3px dashed #09b1ba;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;  
+    justify-content: center;  
+    width: 500px;  
+    height: 100px;  
+    transition: border-color 0.3s ease;
+    background-color: #e6f8f9;
+}
+
+.publishImg div:hover {
+    border-color: #078e97;
+}
+
+.publishImg p {
+    color: #555;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    margin: 0;  
+}
+
+.publishImg input {
+    display: none;
+}
+
+.publishTitle label {
+border-bottom: 1px solid grey;
+width: 500px;
+}
+
+.publishImg .image-loaded {
+    background-color: #d1f1f2; 
+    border-color: #09b1ba;
+    border: 3px solid #09b1ba;
+
+}
+.payment button {
+    border: 1px solid #2cb1ba;
+    border-radius: 5px;
+    font-family: Maison Neue;
+    font-size: 12px;
+    height: 30px;
+    outline: none;
+    width: 100%;
+    color: white;
+    background-color: #2cb1ba;
+    margin: 20px 0 
+}
+.recapOrder {
+    font-size: 11px;
+    color: #757575;
+}
+.paymentSucces{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.paymentSucces p {
+    margin-top: 30px;
+}
+.paymentSucces img {
+width: 100vw;
+height: 100vh;
+}  
+
+
+/* Nouveau style pour la Dropzone */
+.dropzone {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #f2f2f2;
+    color: #555;
+    font-size: 16px;
+    transition: border 0.3s ease;
+  }
+  
+  .dropzone.image-loaded {
+    border-color: #4CAF50;
+    background-color: #e8f5e9;
+  }
+  
+  .dropzone p {
+    margin: 10px 0;
+  }
+  
+  .dropzone p:last-child {
+    font-size: 14px;
+  }
+  
+  .dropzone section {
+    width: 100%;
+    height: 100%;
+  }
+  

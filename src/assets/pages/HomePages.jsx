@@ -12,6 +12,8 @@ function HomePage({ filteredData , ascending}) {
 
       filteredData.sort(comparePrices);
 
+
+
     return (
 <main>
 <div className="BcgImg">
@@ -28,6 +30,7 @@ function HomePage({ filteredData , ascending}) {
     <Link to={`/offer/${item._id}`} key={item._id} className="offer-link">
               <div key={item._id} className="offer">
             <p className="offerName">{item.owner.account.username}</p>
+            {console.log(item)}
             <img src={item.product_image.url} alt={item.nom} />
             <p>{item.product_price.toFixed(2)} €</p>
             {item.product_details.TAILLE && <p>{item.product_details.TAILLE}</p>}

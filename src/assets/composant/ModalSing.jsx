@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Link } from "react-router-dom";
+import { Link ,Navigate } from "react-router-dom";
+import Dropzone from 'react-dropzone'
 
 
 
-function ModalSing({ setIsModalSing , setIsModalLogin}) {
+function ModalSing({ setIsModalSing , setIsModalLogin , setIsLoggedIn}) {
   
     const [avatar, setAvatar] = useState(null)     
     const [error, setError] = useState("");
@@ -19,29 +20,54 @@ function ModalSing({ setIsModalSing , setIsModalLogin}) {
       };
       const handleSubmit = async (event) => {
         event.preventDefault();
-        try {
-          const response = await axios.post(
-            'https://lereacteur-vinted-api.herokuapp.com/user/signup',
-            {
-              email: email,
-              username: name,
-              password: password,
-              newsletter: isChecked,
-              avatar :avatar ,
-            }
-          );
+
+        const defaultAvatarURL = "my-react-app/src/img/547789-200.png";
+
+        const formData = new FormData();
+  formData.append('email', email);
+  formData.append('username', name);
+  formData.append('password', password);
+  formData.append('newsletter', isChecked);
+  if (avatar) {
+    formData.append('picture', avatar);
+} else {
+    formData.append('defaultAvatar', defaultAvatarURL);
+}        try {
+         const response = await axios.post(
+      'https://site--backend-vinded--8bd4m7bpgzgn.code.run/user/signup',
+      formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    );
           console.log(response.data);
           const token = response.data.token;
           Cookies.set('token', token);
           setformSubmit(true);
+          setIsLoggedIn(true)
         } catch (error) {
-          if (error.response && error.response.status === 409) {
-            setError("Cet utilisateur existe déjà dans la base de données.");
-          } else {
-            console.error('Error submitting form:', error);
-          }
+          setError( error.response.data.message);
         }
       };
+
+      const [redirectToHome, setRedirectToHome] = useState(false);
+
+      useEffect(() => {
+          if (formSubmit) {
+              const timer = setTimeout(() => {
+                  setRedirectToHome(true);
+                  
+              }, 2000);
+  
+              return () => clearTimeout(timer);
+          }
+      }, [formSubmit]);
+  
+      if (redirectToHome) {
+          return <Navigate to="/" />;
+      }
 
     return (
 <div className="modalSing" onClick={() => {
@@ -82,36 +108,42 @@ function ModalSing({ setIsModalSing , setIsModalLogin}) {
         />
         S'inscrir à notre newsletter
       </label>
-      {/* <label htmlFor="avatar">
-      <input 
-      type="file" 
-      id='avatar'
-      // value={avatar}
-          onChange={(event) => {
-            setAvatar(event.target.files[0]);
-          }}
-       />
-      ajoutez une photo de profil
-      </label> */}
-      <p>En m'inscrivant je confirme avoir lu et accepté les termes blablablabla</p>
+      
+      <Dropzone onDrop={acceptedFiles => setAvatar(acceptedFiles[0])}>
+        {({ getRootProps, getInputProps }) => (
+          <section>
+            <div {...getRootProps()} className={`dropzone ${avatar ? 'image-loaded' : ''}`}>
+              <input {...getInputProps()} />
+              {avatar ? (
+                <p>image chargée</p>
+              ) : (
+                <p>Déposez votre photo ici, ou cliquez pour la choisir</p>
+              )}
+            </div>
+          </section>
+        )}
+      </Dropzone>
+
+
+      <p className='condition'>En m'inscrivant je confirme avoir lu et accepté les termes blablablabla</p>
 
     <button className='singButton'>S'inscrir</button>
   </form>
-  <p onClick={()=>{setIsModalSing(false); setIsModalLogin(true) } }>Tu as deja un compte? Connecte-toi</p>
-  <Link to="/"><p onClick={()=>{setIsModalSing(false)}}>Ou retourner à l'accueil</p></Link>        
+  <p className='goToConnexion' onClick={()=>{setIsModalSing(false); setIsModalLogin(true) } }>Tu as deja un compte? <strong>Connecte-toi</strong></p>
+  <Link to="/"><p className='goToHome' onClick={()=>{setIsModalSing(false)}}>Ou clic <strong>ici</strong> pour retourner à l'accueil</p></Link>        
   </div> )
   :(
   <div className='resultBloc' onClick={(event) => {
     event.stopPropagation()}}> 
         <p className='closeModal'onClick={() => {
     setIsModalSing(false)}} >X</p>
-    <h1>Results</h1>
+    <h1>Votre compte a été créé</h1>
     <div className='result'>
-      <p>Name : {name}</p>
-      <p>Email : {email}</p>
-      <p>Password : {password}</p>
+      <img className='confetis' src="https://usagif.com/wp-content/uploads/gif/confetti-4.gif"></img>
     </div>
-    <button onClick={()=>setformSubmit(false)  }>Edit your information</button>
+    <Link to="/">
+    <button className='goToAccueil'>retour à la page d'accueil dans quelque secondes</button>
+      </Link> 
     </div>
   )}
 </div>

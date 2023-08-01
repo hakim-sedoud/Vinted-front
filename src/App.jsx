@@ -13,7 +13,7 @@ import Payment from './assets/pages/Payment';
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 
-const stripePromise = loadStripe("pk_test_51HCObyDVswqktOkX6VVcoA7V2sjOJCUB4FBt3EOiAdSz5vWudpWxwcSY8z2feWXBq6lwMgAb5IVZZ1p84ntLq03H00LDVc2RwP");
+const stripePromise = loadStripe("pk_test_51NZFNQE3zK74ds8hJycEUfO78NS0GtfccQ8lAcJorOgeP6Y4xfrhliudvoPpbnlyLVXzjBZ1Fb4iwHCK5PPmt9Ac0063n3saeI");
 
 
 function App() {
@@ -58,7 +58,7 @@ function App() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        'https://lereacteur-vinted-api.herokuapp.com/user/login',
+        'https://site--backend-vinded--8bd4m7bpgzgn.code.run/user/login',
         {
           email: email,
           password: password,
@@ -80,14 +80,15 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`https://lereacteur-vinted-api.herokuapp.com/offers/`);
+        const response = await fetch(`https://site--backend-vinded--8bd4m7bpgzgn.code.run/offers`);
         const jsonData = await response.json();
         setData(jsonData.offers);
+        console.log(jsonData.offers);
+
       } catch (error) {
         console.log('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, []);
 
@@ -125,6 +126,7 @@ function App() {
               <Offerpage data={data} />
             ) : (
               <ModalLogin
+                setIsLoggedIn={setIsLoggedIn}
                 isModalLogin={isModalLogin}
                 setIsModalLogin={setIsModalLogin}
                 handleLoginSubmit={handleLoginSubmit}
@@ -157,7 +159,9 @@ function App() {
 
 
     </Routes>
-    {isModalSing && <ModalSing 
+    {isModalSing && <ModalSing
+    isLoggedIn={isLoggedIn} 
+    setIsLoggedIn={setIsLoggedIn}
     isModalSing ={isModalSing} 
     setIsModalSing = {setIsModalSing} 
     setIsModalLogin = {setIsModalLogin}

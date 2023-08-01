@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
-// import React from 'react'
-// import Dropzone from 'react-dropzone'
+import React from 'react'
+import Dropzone from 'react-dropzone'
+import { useNavigate } from 'react-router-dom';
 
 function Publish ({userToken , setUserToken}) {
 
@@ -11,7 +12,9 @@ function Publish ({userToken , setUserToken}) {
         setUserToken(tokenCookies);
       }, []);
 
-    const [file, setFile] = useState({})   
+    const [message, setMessage] = useState("");
+    const navigate = useNavigate();
+    const [file, setFile] = useState(null)   
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [marque, setMarque] = useState("")
@@ -24,6 +27,10 @@ function Publish ({userToken , setUserToken}) {
 // console.log(token);
     return (
         <div className="publish">
+          {message ? (
+            <div>{message}</div>
+        ) : (
+          <div>
             <p>Vends ton article</p>
             <form onSubmit={async e => {
             e.preventDefault();
@@ -47,7 +54,7 @@ function Publish ({userToken , setUserToken}) {
 
             try {
                 const response = await axios.post(
-                  "https://lereacteur-vinted-api.herokuapp.com/offer/publish",
+                  "https://site--backend-vinded--8bd4m7bpgzgn.code.run/offer/publish",
                   formData,
                   {
                     headers: {
@@ -58,6 +65,10 @@ function Publish ({userToken , setUserToken}) {
                 );
   
                 alert(JSON.stringify(response.data));
+                setMessage("L'annonce a bien été ajoutée !");
+              setTimeout(() => {
+                navigate(`/offer/${response.data._id}`);
+               }, 2000);  
               } catch (err) {
                 if (err.response.status === 500) {
                   console.error("An error occurred");
@@ -65,24 +76,22 @@ function Publish ({userToken , setUserToken}) {
                   console.error(err.response.data);
                 }
               }
-        }}
-            
-            
-            >
+        }}>
             <div className="publishImg">
-            {/* <Dropzone onDrop={acceptedFiles => console.log(acceptedFiles)}>
-            {({getRootProps, getInputProps}) => (
-            <section>
-            <div {...getRootProps()}>
-            <input {...getInputProps()} />
-            <p>Drag 'n' drop some files here, or click to select files</p>
+            <Dropzone onDrop={acceptedFiles => setFile(acceptedFiles[0])}>
+    {({ getRootProps, getInputProps }) => (
+        <section>
+            <div {...getRootProps()} className={file ? 'image-loaded' : ''}>
+                <input {...getInputProps()} />
+                {file ? (
+                    <p>image chargé</p>
+                ) : (
+                    <p>Déposez votre photo ici, ou cliquez pour la choisir</p>
+                )}
             </div>
-            </section>
-            )}
-            </Dropzone> */}
-                <input type="file" onChange={event => {
-              setFile(event.target.files[0]);
-            }}/>
+        </section>
+    )}
+</Dropzone>
             </div>
             <div className="publishTitle">
                 <div>
@@ -119,10 +128,13 @@ function Publish ({userToken , setUserToken}) {
                 <input type="text" placeholder="prix" value = {prix} onChange={event => {
                     setPrix(event.target.value)
                 }}/>
-                <input type="checkbox" />
+                <input type="checkbox" id="myCheckbox" />
+                <label for="myCheckbox">J'accepte les echanges ?</label>
             </div>
             <button>Ajouter</button>
             </form>
+            </div>
+            )}
         </div>
     )
 }
