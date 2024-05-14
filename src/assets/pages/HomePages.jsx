@@ -28,7 +28,7 @@ function HomePage({ filteredData, ascending }) {
                     textAlign: { xs: 'center', md: 'left' }
                 }}>
                     <Box sx={{
-                        width: { xs: '90%', sm: '70%', md: '50%', lg: '332px' },
+                        width: { xs: '90%', sm: '70%', md: '90%', lg: '332px' },
                         height: { xs: '50%', sm: '70%', md: '90%', lg: '250px' },
                         backgroundColor: 'white',
                         borderRadius: 5,
