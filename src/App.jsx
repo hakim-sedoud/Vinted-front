@@ -166,7 +166,7 @@ function App() {
     setIsModalSing = {setIsModalSing} 
     setIsModalLogin = {setIsModalLogin}
 />}
-  {isModalLogin && (
+    {isModalLogin && (
         <ModalLogin
           isModalLogin={isModalLogin}
           setIsModalLogin={setIsModalLogin}
